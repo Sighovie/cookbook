@@ -48,6 +48,13 @@ EDIT RECIPES - This page allows user to edit their recipe.
 RECIPE DETAILED VIEW. This page allows the user to view their recipes in detailed view.
 DELETE RECIPE. This allows the user to delete their recipe.
 
+### Views
+Whenever someone searches for a recipe, all the recipes that met the search criteria are displayed in a list form from highest votes first and sorted again by views. Once a user clicks on one of the results, the recipe view is incremented by 1.
+
+### Votes
+When as a recipe is opened a user can vote for it. Each vote carries one point. And the number of votes are always displayed next to the recipe when opened in details view.
+
+
 
 ### Technologies used
 The site was developed using html / html 5, CSS / CSS 3, Bootstrap, Javascript, Flask, Python3, MySQL, Cloud9, and git/github for version control. Also assessible on Heroku.
