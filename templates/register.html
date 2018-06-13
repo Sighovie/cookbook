@@ -1,0 +1,52 @@
+{% extends 'base.html'%} 
+{% block content %}
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3>Registration Form</h3></div>
+              <div class="panel-body">
+                
+                {% if notice_type == '0' %}
+                <div style="color: #FF0000; text-align:center;"><span>{{ notice }}</span></div>
+                {% elif notice_type == '1'%}
+                <div style="color: #009900; text-align:center;"><span style="color: #009900;">{{ notice }}</span></div>
+                {% endif %}
+
+              <form class="form-signin" action="signUp" method="POST">
+        
+        			<label for="firstname">First Name</label>
+        			<input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required autofocus>		     
+        
+        			<label for="lastname">Last Name</label>
+        			<input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name" required>  		     
+              
+        	        <label for="email">Email</label>
+        	        <input type="email"  name="email" id="email" class="form-control" placeholder="Email" required>
+        	    
+        	        <label for="password">Password</label>
+        	        <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+        
+                     <div class="row">
+                         <div class="col-sm-12" style="text-align:center; margin:10px">
+                             <input name="Submit" class="btn-start-now" type="submit" value="Create A New Account" />
+                         </div>
+                     </div>
+              </form>              
+              </div>
+            </div>        
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3>Registration Info</h3></div>
+              <div class="panel-body">
+                  <p>Registraion is free.</p>
+                  <p><strong>First and Last name:</strong><br />Note that your first name might be publicly viewable if you decide to make your recipe public.</p><br />
+                  <p><strong>Email address and Password:</strong><br />When you have successfully registered, your Email address and Password enable you to login subsequently. Ensure that your password is secure. It will be encrypted before being saved in the database.</p><br />
+                  <p><small>Please note that cookies are used on this website.</small>.</p>
+              </div>
+            </div>    
+        </div>
+      </div>        
+    </div>
+{% endblock %}    

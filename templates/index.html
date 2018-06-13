@@ -1,0 +1,190 @@
+{% extends 'base.html'%} {% block content %}
+    <div class="container">
+      <section class="section-block">
+         <div class="row">
+             <div class="col-sm-4">
+               <a href="#">
+                <div class="card">
+                  <div class="card-title">
+                    <h4><b>Create New Recipe</b></h4> 
+                  </div>                  
+                  <img src="static/images/create_recipe.png" alt="Avatar" style="width:100%">
+                </div>
+               </a>
+               <br /><br />
+               <p>Create or update your recipes anytime. Your recipes will always be available to you online through your computer, mobile or tablet.</p><br />
+             </div>
+             <div class="col-sm-4">
+               <a href="#search">
+                <div class="card">
+                  <div class="card-title">
+                    <h4><b>Search For Recipes</b></h4> 
+                  </div>                  
+                  <img src="static/images/search_recipe.png" alt="Avatar" style="width:100%">
+                </div>
+               </a>
+               <br /><br />
+               <p>You can find recipes, even those created by others, by searching for them. All recipes marked public are accessible to everyone.</p><br />
+             </div>
+             <div class="col-sm-4">
+               <a href="#anywhere">
+                <div class="card">
+                  <div class="card-title">
+                    <h4><b>Access Anywhere</b></h4> 
+                  </div>                  
+                  <img src="static/images/anywhere.png" alt="Avatar" style="width:100%">
+                </div>
+               </a>
+               <br /><br />
+               <p>Your recipes are stored online and can be easily accessible to you anytime, anywhere round the clock.</p><br />
+             </div>
+          </div>
+         <!-- <div class="row">
+             <div class="col-sm-12" style="text-align:center;">
+                 <a href="OpenSignUp">
+                     <button class="btn-start-now">Create Account Now!</button>
+                 </a>
+             </div>
+         </div> -->
+
+         <div class="row">
+             <div class="col-sm-12" style="text-align:center;">
+                 <h3>QUICK SEARCH BY CATEGORIES</h3>
+             </div>
+         </div>
+
+           <div class="container" style="text-align:center;">		   
+               <div class="row">        
+                <div class="col-sm-3" style="text-align:center;">
+                  <a href="search_index_get?c=Appetizers">  
+                    <div class="category-card">
+                      <img src="static/images/categories/appetizers.png" class="category-img" alt="Avatar" style="width:100%">
+                      <div class="category-container">
+                        <h4><b>Appetizers</b></h4> 
+                      </div>
+                    </div>            
+                 </a>
+                </div>
+                <div class="col-sm-3" style="text-align:center;">
+                  <a href="search_index_get?c=Breakfast">  
+                    <div class="category-card">
+                      <img src="static/images/categories/breakfast.png" class="category-img" alt="Avatar" style="width:100%">
+                      <div class="category-container">
+                        <h4><b>Breakfast</b></h4> 
+                      </div>
+                    </div>            
+                  </a>            
+                </div>
+                <div class="col-sm-3" style="text-align:center;">
+                  <a href="search_index_get?c=Main dishes: Poultry">  
+                    <div class="category-card">
+                      <img src="static/images/categories/poultry.png" class="category-img" alt="Avatar" style="width:100%">
+                      <div class="category-container">
+                        <h4><b>Poultry</b></h4> 
+                      </div>
+                    </div>            
+                  </a>            
+                </div>
+                <div class="col-sm-3" style="text-align:center;">
+                  <a href="search_index_get?c=Desserts">  
+                    <div class="category-card">
+                      <img src="static/images/categories/desserts.png" class="category-img" alt="Avatar" style="width:100%">
+                      <div class="category-container">
+                        <h4><b>Desserts</b></h4> 
+                      </div>
+                    </div>            
+                  </a>
+                </div>                
+              </div>
+
+               <div class="row">        
+                <div class="col-sm-3" style="text-align:center;">
+                  <a href="search_index_get?c=Main dishes: Seafood">  
+                    <div class="category-card">
+                      <img src="static/images/categories/seafood.png" class="category-img" alt="Avatar" style="width:100%">
+                      <div class="category-container">
+                        <h4><b>Seafood</b></h4> 
+                      </div>
+                    </div>            
+                  </a>     
+                </div>
+                <div class="col-sm-3" style="text-align:center;">
+                  <a href="search_index_get?c=Lunch">  
+                    <div class="category-card">
+                      <img src="static/images/categories/lunch.png" class="category-img" alt="Avatar" style="width:100%">
+                      <div class="category-container">
+                        <h4><b>Lunch</b></h4> 
+                      </div>
+                    </div>            
+                  </a>       
+                </div>
+                <div class="col-sm-3" style="text-align:center;">
+                  <a href="search_index_get?c=Side dishes: Other">  
+                    <div class="category-card">
+                      <img src="static/images/categories/others.png" class="category-img" alt="Avatar" style="width:100%">
+                      <div class="category-container">
+                        <h4><b>Side Dishes: Others</b></h4> 
+                      </div>
+                    </div>            
+                  </a>           
+                </div>
+                <div class="col-sm-3" style="text-align:center;">
+                  <a href="search_index_get?c=Main dishes: Pork">  
+                    <div class="category-card">
+                      <img src="static/images/categories/pork.png" class="category-img" alt="Avatar" style="width:100%">
+                      <div class="category-container">
+                        <h4><b>Pork</b></h4> 
+                      </div>
+                    </div>            
+                  </a>            
+                </div>                
+              </div>  
+			  
+               <div class="row">        
+                <div class="col-sm-3" style="text-align:center;">
+                  <a href="search_index_get?c=Salads">  
+                    <div class="category-card">
+                      <img src="static/images/categories/salads.png" class="category-img" alt="Avatar" style="width:100%">
+                      <div class="category-container">
+                        <h4><b>Salads</b></h4> 
+                      </div>
+                    </div>            
+                  </a>     
+                </div>
+                <div class="col-sm-3" style="text-align:center;">
+                  <a href="search_index_get?c=Soups">  
+                    <div class="category-card">
+                      <img src="static/images/categories/soup.png" class="category-img" alt="Avatar" style="width:100%">
+                      <div class="category-container">
+                        <h4><b>Soups</b></h4> 
+                      </div>
+                    </div>            
+                  </a>       
+                </div>
+                <div class="col-sm-3" style="text-align:center;">
+                  <a href="search_index_get?c=Side dishes: Vegetables">  
+                    <div class="category-card">
+                      <img src="static/images/categories/vegetables.png" class="category-img" alt="Avatar" style="width:100%">
+                      <div class="category-container">
+                        <h4><b>Vegetables</b></h4> 
+                      </div>
+                    </div>            
+                  </a>           
+                </div>
+                <div class="col-sm-3" style="text-align:center;">
+                  <a href="search_index_get?c=Main dishes: Vegetarian">  
+                    <div class="category-card">
+                      <img src="static/images/categories/vegetarian.png" class="category-img" alt="Avatar" style="width:100%">
+                      <div class="category-container">
+                        <h4><b>Vegetarian</b></h4> 
+                      </div>
+                    </div>            
+                  </a>            
+                </div>                
+              </div>  			  
+			           
+        </div>         
+
+      </section>
+    </div>
+{% endblock %} 

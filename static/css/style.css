@@ -1,0 +1,129 @@
+body {
+  padding-top: 0px;
+  padding-bottom: 40px;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+  
+.bgimg{
+  background: url("{{url_for('static', filename='images/banner2.png')}}") no-repeat;
+  background-size: cover;
+  height:260px;
+}
+
+.navbar-custom {
+    background-color: #8BAB12;
+    margin-top: 0px;
+    border-color: transparent; 
+    text-transform: uppercase;
+  
+}
+
+.logo-style{
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 1.25em;
+    line-height: 20px;
+    color: #fff;
+    
+}
+.logo-style:hover{
+   color: #fff;
+   text-decoration: none;
+   opacity: 0.4;
+   
+}
+.menu-links li a{
+    color: #fff;
+}
+.menu-links li a:hover{
+    background-color: #333312;
+    opacity: 0.4;
+}
+h2{
+  text-align:center;
+}
+.site-footer {
+  background-color: #8BAB12;
+  padding:25px;
+}
+
+.section-block {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 100%;
+}
+.card img{
+  padding:10px;
+}
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.card-title {
+    padding: 2px 16px;
+    text-align:center;
+}
+
+.btn-start-now {
+  background: #c7eb36;
+  background-image: -webkit-linear-gradient(top, #c7eb36, #6c8507);
+  background-image: -moz-linear-gradient(top, #c7eb36, #6c8507);
+  background-image: -ms-linear-gradient(top, #c7eb36, #6c8507);
+  background-image: -o-linear-gradient(top, #c7eb36, #6c8507);
+  background-image: linear-gradient(to bottom, #c7eb36, #6c8507);
+  -webkit-border-radius: 12;
+  -moz-border-radius: 12;
+  border-radius: 12px;
+  font-family: Arial;
+  color: #fff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn-start-now:hover {
+  background: #9ebd20;
+  text-decoration: none;
+}

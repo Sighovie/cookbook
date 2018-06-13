@@ -1,0 +1,77 @@
+{% extends 'dash_base.html'%} 
+{% block content %}
+<div class="col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3>Recipe Detailed View</h3></div>
+              <div class="panel-body">
+                  <table class="table table-hover">
+             <thead>
+                    <tr>
+                      <th colspan="2" scope="col">Your recipe <h3>{{ data[0]['recipe_name'] }}</h3> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr>
+                      <td width="35%" style="font-weight:900;">Category:</td>
+                      <td width="65%">{{ cat[0]['category_name'] }}</td>
+                    </tr>                    
+                    <tr>
+                      <td style="font-weight:900;">Ingredients:</td>
+                      <td>{{ data[0]['ingredients'] }}</td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:900;">Preparation Description:</td>
+                      <td>{{ data[0]['preparation_description'] }}</td>
+                    </tr>                      
+                  
+                    <tr>
+                      <td style="font-weight:900;">Known Allergies:</td>
+                      <td>{{ data[0]['known_allergies'] }}</td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:900;">Nutritional Values:</td>
+                      <td>{{ data[0]['nutrition'] }}</td>
+                    </tr>   
+                    <tr>
+                      <td style="font-weight:900;">Preparation Time:</td>
+                      <td>{{ data[0]['preparation_time'] }} minutes</td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:900;">Cooking Time:</td>
+                      <td>{{ data[0]['cooking_time'] }} minutes</td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:900;">Cuisine:</td>
+                      <td>{{ data[0]['cuisine'] }}</td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:900;">Votes<small><small> (public rating)</small></small>:</td>
+                      <td>{{ data[0]['votes'] }}</td>
+                    </tr> 
+                    <tr>
+                      <td style="font-weight:900;">views<small><small> (Number of times page viewed):</small></small></td>
+                      <td>{{ data[0]['views'] }}</td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight:900;">Date Recipe Created:</td>
+                      <td>{{ data[0]['post_date'] }}</td>
+                    </tr>
+                    
+                    <tr>
+                      <td style="font-weight:900;">Public View?:</td>
+                      <td>
+                        {% if data[0]['public_status'] == "1"%}Yes{% else %}No{%endif%}
+                      </td>
+                    </tr>                    
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td><a href="view_your_recipes"><strong>&lt;&lt; Back</strong></a></td>
+                    </tr>                    
+                  </tbody>
+                </table>                
+                
+              </div>
+            </div>        
+        </div>
+{% endblock %} 

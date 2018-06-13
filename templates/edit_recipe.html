@@ -1,0 +1,98 @@
+{% extends 'dash_base.html'%} 
+{% block content %}
+<div class="col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3>Edit Your Recipe</h3></div>
+              <div class="panel-body">
+                {% if notice_type == '0' %}
+                <div style="color: #FF0000; text-align:center;"><span>{{ notice }}</span></div>
+                {% elif notice_type == '1'%}
+                <div style="color: #009900; text-align:center;"><span style="color: #009900;">{{ notice }}</span></div>
+                {% endif %}
+
+              <form class="form-signin"  enctype="multipart/form-data" action="UpdateRecipe" method="POST">
+               
+        			<label for="firstname">Recipe Title or Name</label>
+        			<input type="text" name="recipe_name" id="recipe_name" value="{{ data[0]['recipe_name'] }}" class="form-control" placeholder="Recipe Title or Name" required autofocus>	
+        			
+
+					<label for="category_id">Recipe Category: <small><small><small>Breakfast, Dinner, Appetizer, etc.?</small></small></small></label>
+					<select  id="category_id" name="category_id" class="form-control">
+					  <option value="{{ cat[0]['category_id'] }}" selected="selected">{{ cat[0]['category_name'] }}</option>
+					   {% for value in cat %}
+											   
+					   <option value="{{ value['category_id'] }}"{% if value['category_id'] == data[0]['category_id']%} selected="selected"	{% endif %}>{{ value['category_name'] }}</option>
+					   {% endfor %}
+					</select>        			
+        
+
+
+					
+        			<label for="ingredients">Ingredients</label>
+        			<textarea name="ingredients" id="ingredients"  class="form-control" placeholder="Ingredients" required>{{ data[0]['ingredients'] }}</textarea>
+        			
+        			<label for="preparation_description">Preparation Description</label>
+        			<textarea name="preparation_description"   id="preparation_description" class="form-control" placeholder="Preparation Description" required>{{ data[0]['preparation_description'] }}</textarea> 		  
+        			
+        			<label for="nutrition">Nutrition Values</label>
+        			<textarea name="nutrition" id="nutrition" class="form-control" placeholder="Nutrition Values">{{ data[0]['nutrition'] }}</textarea> 
+        			
+        			<label for="known_allergies">Known Allergies</label>
+        			<textarea name="known_allergies"   id="known_allergies" class="form-control" placeholder="Known Allergies">{{ data[0]['known_allergies'] }}</textarea> 	
+        			
+        			<label for="preparation_time">Preparation Time <small><small>(In minutes)</small></small></label>
+        			<input type="number" name="preparation_time" value="{{ data[0]['preparation_time'] }}" id="preparation_time" class="form-control" placeholder="Preparation Time" required>
+        			
+        			<label for="cooking_time">Cooking Time <small><small>(In minutes)</small></small></label>
+        			<input type="number" name="cooking_time"  value="{{ data[0]['cooking_time'] }}" id="cooking_time" class="form-control" placeholder="Cooking Time" required>
+        			
+        			<label for="cuisine">Cuisine <small><small>(or recipe origin)</small></small></label>
+					<select  id="cuisine" name="cuisine" class="form-control">
+					   
+					                  <option value="{{ data[0]['cuisine'] }}">{{ data[0]['cuisine'] }}</option>
+                            <option value="Mexican">Mexican</option>
+                            <option value="Italian">Italian</option>
+                            <option value="Indian">Indian</option>
+                            <option value="Greek">Greek</option>
+                            <option value="Chinese">Chinese</option>
+                            <option value="Thai">Thai</option>
+                            <option value="French">French</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="German">German</option>
+                            <option value="Irish">Irish</option>
+                            <option value="Creole/Cajun">Creole/Cajun</option>
+                            <option value="Southern">Southern</option>
+                            <option value="Asian">Asian</option>
+                            <option value="Southwest/Tex-Mex">Southwest/Tex-Mex</option>
+                            <option value="African">African</option>
+					</select>         			
+
+        			<label for="image_link">Image/Photo <small><small>(Add an image if you have)</small></small></label>
+        			<input type="file" id="image_link" value="{{ data[0]['image_link'] }}"  name="image_link"  class="form-control" placeholder="Add An Image"/>
+
+
+					<label for="public_status">Public Status: <small><small><small>Allow others to see your recipe?</small></small></small></label>
+						{% if data[0]['public_status'] == "1"%}
+						{% set public_stat = 'Yes' %}
+						{% set public_stat_val = '1' %}
+						{% else %}
+						{% set public_stat = 'No' %}
+						{% set public_stat_val = '0' %}
+						{% endif %}
+					<select  id="public_status" name="public_status" class="form-control">
+						  <option value="{{ public_stat_val }}">{{ public_stat }}</option>
+						  <option value="1">Yes</option>
+						  <option value="0">No</option>
+					</select> 
+					<input name="recipe_id" id="recipe_id" type="hidden" value="{{ data[0]['recipe_id'] }}" />      
+                     <div class="row">
+                         <div class="col-sm-12" style="text-align:center; margin:10px">
+                             <input name="Submit" class="btn-start-now" type="submit" value="Update Your Recipe" /><br /><a href="view_your_recipes"><strong>&lt;&lt; Back</strong></a>
+                         </div>
+                     </div>
+              </form> 
+            
+              </div>
+            </div>        
+        </div>
+{% endblock %} 

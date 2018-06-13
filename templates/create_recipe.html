@@ -1,0 +1,83 @@
+{% extends 'dash_base.html'%} 
+{% block content %}
+<div class="col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3>Create A New Recipe</h3></div>
+              <div class="panel-body">
+                {% if notice_type == '0' %}
+                <div style="color: #FF0000; text-align:center;"><span>{{ notice }}</span></div>
+                {% elif notice_type == '1'%}
+                <div style="color: #009900; text-align:center;"><span style="color: #009900;">{{ notice }}</span></div>
+                {% endif %}
+
+              <form class="form-signin"  enctype="multipart/form-data" action="createNewRecipe" method="POST">
+ 
+        			<label for="firstname">Recipe Title or Name</label>
+        			<input type="text" name="recipe_name" id="recipe_name"  class="form-control" placeholder="Recipe Title or Name" required autofocus>	
+        			
+
+					<label for="category_id">Recipe Category: <small><small><small>Breakfast, Dinner, Appetizer, etc.?</small></small></small></label>
+					<select  id="category_id" name="category_id" class="form-control">
+					   {% for value in cat %}
+					   <option value="{{ value['category_id'] }}">{{ value['category_name'] }}</option>
+					   {% endfor %}
+						
+					</select>        			
+        
+        			<label for="ingredients">Ingredients</label>
+        			<textarea name="ingredients" id="ingredients" class="form-control" placeholder="Ingredients" required></textarea>
+        			
+        			<label for="preparation_description">Preparation Description</label>
+        			<textarea name="preparation_description" id="preparation_description" class="form-control" placeholder="Preparation Description" required></textarea> 		  
+        			
+        			<label for="nutrition">Nutrition Values</label>
+        			<textarea name="nutrition" id="nutrition" class="form-control" placeholder="Nutrition Values"></textarea> 
+        			
+        			<label for="known_allergies">Known Allergies</label>
+        			<textarea name="known_allergies" id="known_allergies" class="form-control" placeholder="Known Allergies"></textarea> 	
+        			
+        			<label for="preparation_time">Preparation Time <small><small>(In minutes)</small></small></label>
+        			<input type="number" name="preparation_time" id="preparation_time" class="form-control" placeholder="Preparation Time" required>
+        			
+        			<label for="cooking_time">Cooking Time <small><small>(In minutes)</small></small></label>
+        			<input type="number" name="cooking_time" id="cooking_time" class="form-control" placeholder="Cooking Time" required>
+        			
+        			<label for="cuisine">Cuisine <small><small>(or recipe origin)</small></small></label>
+					<select  id="cuisine" name="cuisine" class="form-control">
+                            <option value="Mexican">Mexican</option>
+                            <option value="Italian">Italian</option>
+                            <option value="Indian">Indian</option>
+                            <option value="Greek">Greek</option>
+                            <option value="Chinese">Chinese</option>
+                            <option value="Thai">Thai</option>
+                            <option value="French">French</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="German">German</option>
+                            <option value="Irish">Irish</option>
+                            <option value="Creole/Cajun">Creole/Cajun</option>
+                            <option value="Southern">Southern</option>
+                            <option value="Asian">Asian</option>
+                            <option value="Southwest/Tex-Mex">Southwest/Tex-Mex</option>
+                            <option value="African">African</option>
+					</select>         			
+
+        			<label for="cuisine">Image/Photo <small><small>(Add an image if you have)</small></small></label>
+        			<input type="file" id="image_link"  name="image_link"  class="form-control" placeholder="Add An Image"/>
+
+
+					<label for="email">Public Status: <small><small><small>Allow others to see your recipe?</small></small></small></label>
+					<select  id="public_status" name="public_status" class="form-control">
+						  <option value="1">Yes</option>
+						  <option value="0">No</option>
+					</select>        
+                     <div class="row">
+                         <div class="col-sm-12" style="text-align:center; margin:10px">
+                             <input name="Submit" class="btn-start-now" type="submit" value="Create A New Recipe" />
+                         </div>
+                     </div>
+              </form> 
+            
+              </div>
+            </div>        
+        </div>
+{% endblock %} 

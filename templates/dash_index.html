@@ -1,0 +1,81 @@
+{% extends 'dash_base.html'%} 
+{% block content %}
+<div class="col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3>Dashboard</h3></div>
+              
+              <div class="panel-body">
+                <p>QUICK LINKS</p>
+            
+               <div class="row">        
+                <div class="col-sm-4" style="text-align:center;">
+                  <a href="edit_details">  
+                    <div class="category-card" style="color:grey; font-size: 75px;">
+                      <span class="glyphicon glyphicon-user"></span>
+                      <div class="category-container">
+                        <h4><b>YOUR DETAILS</b></h4> 
+                      </div>
+                    </div>            
+                  </a>            
+                </div> 
+                <div class="col-sm-4" style="text-align:center;">
+                  <a href="create_recipe">  
+                    <div class="category-card" style="color:grey; font-size: 75px;">
+                      <span class="glyphicon glyphicon-book"></span>
+                      <div class="category-container">
+                        <h4><b>CREATE RECIPE</b></h4> 
+                      </div>
+                    </div>            
+                  </a>            
+                </div> 
+                <div class="col-sm-4" style="text-align:center;">
+                  <a href="view_your_recipes">  
+                    <div class="category-card" style="color:grey; font-size: 75px;">
+                      <span class="glyphicon glyphicon-briefcase"></span>
+                      <div class="category-container">
+                        <h4><b>YOUR RECIPES</b></h4> 
+                      </div>
+                    </div>            
+                  </a>            
+                </div> 
+        
+              </div>  
+			  
+               <div class="row">        
+                <div class="col-sm-4" style="text-align:center;">
+                  <a href="view_your_recipes?t=e">  
+                    <div class="category-card" style="color:grey; font-size: 75px;">
+                      <span class="glyphicon glyphicon-edit"></span>
+                      <div class="category-container">
+                        <h4><b>EDIT RECIPES</b></h4> 
+                      </div>
+                    </div>            
+                  </a>            
+                </div> 
+                <div class="col-sm-4" style="text-align:center;">
+                  <a href="view_your_recipes?t=v">  
+                    <div class="category-card" style="color:grey; font-size: 75px;">
+                      <span class="glyphicon glyphicon-list-alt"></span>
+                      <div class="category-container">
+                        <h4><b style="font-size: 14px;">RECIPE DETAILED VIEW</b></h4> 
+                      </div>
+                    </div>            
+                  </a>            
+                </div> 
+                <div class="col-sm-4" style="text-align:center;">
+                  <a href="view_your_recipes?t=d">  
+                    <div class="category-card" style="color:grey; font-size: 75px;">
+                      <span class="glyphicon glyphicon-trash"></span>
+                      <div class="category-container">
+                        <h4><b>DELETE RECIPE</b></h4> 
+                      </div>
+                    </div>            
+                  </a>            
+                </div> 
+          
+              </div>  			              
+            
+              </div>
+            </div>        
+        </div>
+{% endblock %} 

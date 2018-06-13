@@ -1,0 +1,30 @@
+{% extends 'base.html'%} 
+{% block content %}
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+              <div class="panel panel-default">
+                <div class="panel-heading"><h3>{{ recipes[0]["recipe_name"] }}</h3></div>
+                <div class="panel-body">
+  
+                  <p><strong>Category</strong><br />{{  cat[0]['category_name']  }}</p><br />
+                  <p><strong>ingredients</strong><br />{{ recipes[0]["ingredients"] }}</p><br />
+                  <p><strong>Preparation Description</strong><br />{{ recipes[0]["preparation_description"] }}</p><br />
+                  <p><strong>Preparation Time</strong><br />{{ recipes[0]["preparation_time"] }}</p><br />
+                  
+                  <p><strong>Cooking Time</strong><br />{{ recipes[0]["cooking_time"] }}</p><br />
+                  <p><strong>Cuisine</strong><br />{{ recipes[0]["cuisine"] }}</p><br />
+                  <p><strong>nutrition</strong><br />{{ recipes[0]["nutrition"] }}</p><br />
+                  <p><strong>Known Allergies</strong><br />{{ recipes[0]["known_allergies"] }}</p><br />
+                  
+                  <p>[<strong>Views: {{ recipes[0]["views"] }}</strong>] [<strong>Votes: {{ recipes[0]["votes"] }}</strong>]  [ <a href="OutVoteNow?id={{recipes[0]['recipe_id']}}&s={{ search }}"><strong>Vote Now</strong></a> ]</p>
+                  
+                  <p><a href="search_cat_get?s={{ search }}"><small><small><</small></small><small><</small>< Back </a></p>
+                  
+              
+                </div>
+              </div>        
+          </div>
+        </div>
+     </div>
+{% endblock %} 

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Online Cookbook. Members Area</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon">
+      <link rel="icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon">           
+<style>
+body {
+  padding-top: 0px;
+  padding-bottom: 40px;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}  
+.bgimg{
+  
+  background: url("static/images/banner2.png") no-repeat;
+  background-size: cover;
+  height:260px;
+
+      
+}
+
+.navbar-custom {
+    background-color: #8BAB12;
+    margin-top: 0px;
+    border-color: transparent; 
+    text-transform: uppercase;
+  
+}
+
+.logo-style{
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 1.25em;
+    line-height: 20px;
+    color: #fff;
+    
+}
+.logo-style:hover{
+   color: #fff;
+   text-decoration: none;
+   opacity: 0.4;
+   
+}
+.menu-links li a{
+    color: #fff;
+}
+.menu-links li a:hover{
+    background-color: #333312;
+    opacity: 0.4;
+}
+h2{
+  text-align:center;
+}
+.site-footer {
+  background-color: #8BAB12;
+  padding:25px;
+}
+
+.section-block {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 100%;
+}
+.card img{
+  padding:10px;
+}
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.card-title {
+    padding: 2px 16px;
+    text-align:center;
+}
+
+.btn-start-now {
+  background: #c7eb36;
+  background-image: -webkit-linear-gradient(top, #c7eb36, #6c8507);
+  background-image: -moz-linear-gradient(top, #c7eb36, #6c8507);
+  background-image: -ms-linear-gradient(top, #c7eb36, #6c8507);
+  background-image: -o-linear-gradient(top, #c7eb36, #6c8507);
+  background-image: linear-gradient(to bottom, #c7eb36, #6c8507);
+  -webkit-border-radius: 12;
+  -moz-border-radius: 12;
+  border-radius: 12px;
+  font-family: Arial;
+  color: #fff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn-start-now:hover {
+  background: #9ebd20;
+  text-decoration: none;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+div.wrapper {
+  margin: 20px auto;
+  width: 100%;
+}
+
+
+
+nav.vertical {
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,.15);
+  overflow: hidden;
+  text-align: center;
+}
+
+  nav.vertical > ul {
+    list-style-type: none;
+  }
+
+    nav.vertical > ul > li {
+      display: block;
+    }
+
+      nav.vertical > ul > li > a {
+        background-color: rgb(157, 34, 60);
+        background-image: -webkit-linear-gradient(135deg, rgb(139,171,18), rgb(157, 34, 60));
+        background-image: -moz-linear-gradient(135deg, rgb(139,171,18), rgb(157, 34, 60));
+        background-image: -o-linear-gradient(135deg, rgb(139,171,18), rgb(157, 34, 60));
+        background-image: linear-gradient(135deg, rgb(139,171,18), rgb(157, 34, 60));
+        border-bottom: 1px solid rgba(255,255,255,.1);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.1), 0 1px 1px rgba(0,0,0,.1);
+        color: rgb(255,255,255);
+        display: block;
+        font-size: .2.1em;
+        font-weight: 500;
+        height: 50px;
+        letter-spacing: .5rem;
+        line-height: 50px;
+        text-shadow: 0 1px 1px rgba(0,0,0,.1);
+        text-transform: uppercase;
+        transition: all .1s ease;
+        text-decoration: none;
+      }
+
+        nav.vertical > ul > li > a:hover {
+         background-color: rgb(139,171,18);
+         background-image: -webkit-linear-gradient(150deg, rgb(139,171,18), rgb(139,171,18));
+         background-image: -moz-linear-gradient(150deg, rgb(139,171,18), rgb(139,171,18));
+         background-image: -o-linear-gradient(150deg, rgb(139,171,18), rgb(139,171,18));
+         background-image: linear-gradient(150deg, rgb(139,171,18), rgb(139,171,18)); 
+         cursor: pointer;
+        }
+        
+          nav.vertical > ul > li > div {
+            background-color: rgb(255,255,255);
+            background-color: #8BAB12;
+          }
+ 
+          nav.vertical > ul > li > div > ul {
+            list-style-type: none;
+          }
+
+            nav.vertical > ul > li > div > ul > li > a {
+             background-color: rgb(255,255,255);
+             border-bottom: 1px solid rgba(0,0,0,.05);
+             color: #333331;
+             display: block;
+             font-size: 1.2rem;
+             padding: 10px 0;
+             text-decoration: none;
+             transition: all 0.15s linear;
+            }
+
+              nav.vertical > ul > li > div > ul > li:hover > a {
+                background-color: #D0EADD;
+                color: grey;
+                padding: 10px 0 10px 50px;
+              }
+
+/*Receipe Search Cards*/
+.category-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 150px;
+    border-radius: 4px;
+    text-align:center;
+    margin:5px;    
+}
+
+.category-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+category-img {
+    border-radius: 5px 5px 0 0;
+}
+
+.category-container {
+    padding: 2px 16px;
+
+</style> 
+  </head>
+ 
+  <body>
+    <!-- Navigation -->
+
+    <header class="navbar navbar-inverse navbar-custom ">
+      <div class="container">
+          <div class="bgimg">
+            <div class="navbar-header">
+                <a class="logo-style" href="/dashboard">Online Cook-book</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>          
+            </div>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="nav navbar-right menu-links">
+        				<li role="presentation" ><a href="/dashboard"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+        				<li role="presentation"><a href="LogOut"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+              </ul>
+            </div>
+            <div style="color:#fff; padding-top:25px; padding-left:10px;"><h1>{{ session["firstname"] + " " + session["lastname"]}}</h1></div><br /><br />
+            <div class="navbar-right">
+              <form id="form1" name="form1" method="post" action="/search">
+                <label>
+                <input name="search" type="text" id="search"  class="form-control" placeholder="Find A Recipe" required="required"/>
+                </label>
+                <label>
+                <button type="submit" class="btn btn-default">
+                  <span class="glyphicon glyphicon-search"></span> Search
+                </button>
+                </label>
+              </form>
+            </div>
+          </div>
+          
+      </div>
+    </header>
+	    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+    {% block content %} 
+    {% endblock %}	        
+        <div class="col-sm-4">
+            <div class="wrapper">
+              <nav class="vertical">
+                <ul>
+                  <li>
+                    <a href="#">Navigation Menu</a>
+                    <div>
+                      <ul>
+                        <li><a href="/dashboard"><span class="glyphicon glyphicon-home"></span> Dashboard</a></li>
+                        <li><a href="/edit_details"><span class="glyphicon glyphicon-user"></span> Edit Your Details</a></li>
+                        <li><a href="/create_recipe"><span class="glyphicon glyphicon-book"></span> Create New Recipe</a></li>
+                        <li><a href="/view_your_recipes"><span class="glyphicon glyphicon-briefcase"></span> View Your Recipe</a></li>
+                        <li><a href="LogOut"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </nav>
+            </div>             
+        </div>
+      </div>        
+    </div>	    
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p class="m-0 text-center text-white">Online Cook-Book 2018</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>	
+  </body>
+</html>

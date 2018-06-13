@@ -1,0 +1,43 @@
+{% extends 'base.html'%} {% block content %}
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3>Login Form</h3></div>
+              <div class="panel-body">
+
+                {% if notice_type == '0' %}
+                <div style="color: #FF0000; text-align:center;"><span>{{ notice }}</span></div>
+                {% elif notice_type == '1'%}
+                <div style="color: #009900; text-align:center;"><span style="color: #009900;">{{ notice }}</span></div>
+                {% endif %}
+                
+                <form class="form-signin" action="LoginUser" method="POST">
+                    
+        	        <label for="email">Email</label>
+        	        <input type="email"  name="email" id="email" class="form-control" placeholder="Email" required>
+        	    
+        	        <label for="password">Password</label>
+        	        <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+        
+                     <div class="row">
+                         <div class="col-sm-12" style="text-align:center; margin:10px">
+                             <input name="Submit" class="btn-start-now" type="submit" value="Login Into Your Account" />
+                         </div>
+                     </div>
+              </form>              
+              </div>
+            </div>        
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3>Info</h3></div>
+              <div class="panel-body">
+                  <p><strong>Email address and Password:</strong><br />Enter the same Email address and password you used in registering to be able to login.</p><br />
+                  <p><small>Please note that cookies are used on this website.</small>.</p>
+              </div>
+            </div>    
+        </div>
+      </div>        
+    </div>
+{% endblock %} 
