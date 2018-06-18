@@ -10,13 +10,13 @@
                 <div style="color: #009900; text-align:center;"><span style="color: #009900;">{{ notice }}</span></div>
                 {% endif %}
                 {% if request.args.get('t') == 'd' %}
-                <div style="color:red; text-align:center;">Select a recipe and click on Delete to delete the recipe!</div>
+                <div style="color:red; text-align:center;">Select a recipe and click on View, then click on Delete to delete the recipe!</div>
                 {% endif %}
                 {% if request.args.get('t') == 'e' %}
-                <div style="color:red; text-align:center;">Select a recipe and click on Edit to edit the recipe!</div>
+                <div style="color:red; text-align:center;">Select a recipe and click on View, then click on Edit to edit the recipe!</div>
                 {% endif %}
                 {% if request.args.get('t') == 'v' %}
-                <div style="color:red; text-align:center;">Select a recipe and click on View for a detailed view of the recipe!</div>
+                <div style="color:red; text-align:center;">Select the recipe you wish to view and click on View for a detailed view of the recipe!</div>
                 {% endif %}                   
                   <table class="table table-hover">
              <thead>
@@ -35,7 +35,12 @@
                       <td>{{value["recipe_name"]}}</td>
                       <td>{{value["post_date"]}}</td>
                       <td>{{value["views"]}}</td>
-                      <td>[<a href="edit_recipe?id={{value['recipe_id']}}">Edit</a>] [<a href="recipe_detailed_view?id={{value['recipe_id']}}">View</a>] [<a href="delete_recipe?id={{value['recipe_id']}}">Delete</a>]</td>
+                      <td>
+                            <form id="edit" name="edit" method="GET" action="recipe_detailed_view?id={{value['recipe_id']}}">
+                              <input name="id" id="id" type="hidden" value="{{value['recipe_id']}}" />
+                              <button type="submit" class="btn btn-default">View</button>
+                            </form>                          
+                       </td>
                     </tr>                    
                        {% endfor %}
                     {% else %}

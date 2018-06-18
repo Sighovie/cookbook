@@ -1,0 +1,34 @@
+{% extends 'base.html'%} {% block content %}
+    <div class="container">
+      <section class="section-block">
+           <div class="container" style="text-align:center;">		   
+              {% if recipes %}
+			        <h3>ALL RECIPES {% if search %}RELATING TO {{ search.upper() }} {%endif%}</h3><br />
+              <div class="row">
+                <div class="col-sm-2"><strong>Title</strong></div>
+                <div class="col-sm-2"><strong>Category</strong></div>
+                <div class="col-sm-2"><strong>Description</strong></div>
+                <div class="col-sm-2"><strong>Cuisine</strong></div>
+                <div class="col-sm-2"><strong>Votes</strong></div>
+                <div class="col-sm-2"><strong>Detail</strong></div>                
+              </div>
+              {% for value in recipes %}
+              <div class="row table-bordered" style="padding:10px;">
+                <div class="col-sm-2">{{ value['recipe_name'][:20] }}</div>
+                {%for catval in cat%}
+                {%if catval['category_id'] == value['category_id'] %}
+                <div class="col-sm-2">{{ catval['category_name'] }}</div>
+                {% endif %}
+                {% endfor %}
+                <div class="col-sm-2">{{ value['preparation_description'][:50] }}</div>
+                <div class="col-sm-2">{{ value['cuisine'][:20] }}</div>
+                <div class="col-sm-2">{{ value['votes'] }}</div>
+                <div class="col-sm-2"><a href="outsideSearchDetail?id={{value['recipe_id']}}&s={{search}}">Read more ..</a></div>                
+              </div>
+              {% endfor %}
+              {% endif %}
+        </div>         
+
+      </section>
+    </div>
+{% endblock %} 

@@ -3,38 +3,38 @@
       <section class="section-block">
          <div class="row">
              <div class="col-sm-4">
-               <a href="#">
+               
                 <div class="card">
                   <div class="card-title">
                     <h4><b>Create New Recipe</b></h4> 
                   </div>                  
                   <img src="static/images/create_recipe.png" alt="Avatar" style="width:100%">
                 </div>
-               </a>
+              
                <br /><br />
                <p>Create or update your recipes anytime. Your recipes will always be available to you online through your computer, mobile or tablet.</p><br />
              </div>
              <div class="col-sm-4">
-               <a href="#search">
+               
                 <div class="card">
                   <div class="card-title">
                     <h4><b>Search For Recipes</b></h4> 
                   </div>                  
                   <img src="static/images/search_recipe.png" alt="Avatar" style="width:100%">
                 </div>
-               </a>
+           
                <br /><br />
                <p>You can find recipes, even those created by others, by searching for them. All recipes marked public are accessible to everyone.</p><br />
              </div>
              <div class="col-sm-4">
-               <a href="#anywhere">
+              
                 <div class="card">
                   <div class="card-title">
                     <h4><b>Access Anywhere</b></h4> 
                   </div>                  
                   <img src="static/images/anywhere.png" alt="Avatar" style="width:100%">
                 </div>
-               </a>
+               
                <br /><br />
                <p>Your recipes are stored online and can be easily accessible to you anytime, anywhere round the clock.</p><br />
              </div>
@@ -181,8 +181,42 @@
                     </div>            
                   </a>            
                 </div>                
-              </div>  			  
-			           
+              </div><br />
+              <div class="row">
+                <div class="col-sm-12">
+                    <form id="edit" name="edit" method="GET" action="all_recipes">
+                      <button type="submit" class="btn btn-success" style="float:left;margin-top:10px;background-color: #8BAB12;">All Recipes</button>
+                    </form>                     
+                </div>
+              </div>                    
+              <br />
+              {% if recipes %}
+			        <h3>20 RECENTLY ADDED RECIPES</h3>
+              <div class="row recent-added">
+                <div class="col-sm-2"><strong>Title</strong></div>
+                <div class="col-sm-2"><strong>Category</strong></div>
+                <div class="col-sm-2"><strong>Description</strong></div>
+                <div class="col-sm-2"><strong>Cuisine</strong></div>
+                <div class="col-sm-2"><strong>Votes</strong></div>
+                <div class="col-sm-2"><strong>Detail</strong></div>                
+              </div>
+              {% for value in recipes %}
+              <div class="row table-bordered" style="padding:10px;">
+                <div class="col-sm-2">{{ value['recipe_name'][:20] }}</div>
+                {%for catval in cat%}
+                {%if catval['category_id'] == value['category_id'] %}
+                <div class="col-sm-2">{{ catval['category_name'] }}</div>
+                {% endif %}
+                {% endfor %}
+                <div class="col-sm-2">{{ value['preparation_description'][:50] }}</div>
+                <div class="col-sm-2">{{ value['cuisine'][:20] }}</div>
+                <div class="col-sm-2">{{ value['votes'] }}</div>
+                <div class="col-sm-2"><a href="outsideSearchDetail?id={{value['recipe_id']}}&s={{value['recipe_name'][:20]}}">Read more ..</a></div>                
+              </div>
+              {% endfor %}
+              {% endif %}
+              
+        
         </div>         
 
       </section>

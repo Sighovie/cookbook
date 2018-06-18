@@ -34,6 +34,9 @@ If the email has been previously used, the user is informed, and asked to login 
 #### Search For Recipe:
 When a user visits the site, the index pages has icons that can be used to search for different recipes based on categories. A search by typing a search word is also possible on top of all pages visited.
 
+#### All Recipes:
+There is a button provided on the index page that allows visitors to view all recipes. Although, this button will load all available recipes on one page. With enough time, I could have added pagination.
+
 #### Pages on visting the site for the first time:
 HOME - This is the index page.  
 LOG IN - This page allows a user that has already created an account to login to their account.
@@ -51,16 +54,17 @@ DELETE RECIPE. This allows the user to delete their recipe.
 ### Views
 Whenever someone searches for a recipe, all the recipes that met the search criteria are displayed in a list form from highest votes first and sorted again by views. Once a user clicks on one of the results, the recipe view is incremented by 1.
 
-### Votes
-When as a recipe is opened a user can vote for it. Each vote carries one point. And the number of votes are always displayed next to the recipe when opened in details view.
+### Up Vote
+When a recipe is opened, a user can vote for it. Each vote carries one point. And the number of votes are always displayed next to the recipe when opened in details view.
 
-
+### Down Vote
+Just as a user can upvotes a recipe, so also can the user down vote a recipe. The down votes are displayed on all detailed view of a recipe near the Up votes.
 
 ### Technologies used
 The site was developed using html / html 5, CSS / CSS 3, Bootstrap, Javascript, Flask, Python3, MySQL, Cloud9, and git/github for version control. Also assessible on Heroku.
 
 #### Limitations
-Recipe pictures and images are not allowed presently to be uploaded. As images files are big, allowing upload of images might fill the permitted server space too quickly.
+Recipe pictures and images are not allowed presently to be uploaded. As images files are big, allowing upload of images might fill the permitted server space too quickly. Also, pagination is not added to any of the pages that require loading lots of information on the page.
 
 
 #### Support:

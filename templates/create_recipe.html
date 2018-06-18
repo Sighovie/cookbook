@@ -37,10 +37,10 @@
         			<textarea name="known_allergies" id="known_allergies" class="form-control" placeholder="Known Allergies"></textarea> 	
         			
         			<label for="preparation_time">Preparation Time <small><small>(In minutes)</small></small></label>
-        			<input type="number" name="preparation_time" id="preparation_time" class="form-control" placeholder="Preparation Time" required>
+        			<input type="number" name="preparation_time" id="preparation_time" class="form-control" placeholder="Preparation Time"  min="1" max="1440" required>
         			
         			<label for="cooking_time">Cooking Time <small><small>(In minutes)</small></small></label>
-        			<input type="number" name="cooking_time" id="cooking_time" class="form-control" placeholder="Cooking Time" required>
+        			<input type="number" name="cooking_time" id="cooking_time" class="form-control"  min="1" max="1440" placeholder="Cooking Time" required>
         			
         			<label for="cuisine">Cuisine <small><small>(or recipe origin)</small></small></label>
 					<select  id="cuisine" name="cuisine" class="form-control">

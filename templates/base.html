@@ -9,6 +9,7 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>      
       <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon">
       <link rel="icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon">      
+      <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 <style>
 body {
   padding-top: 0px;
@@ -161,6 +162,15 @@ category-img {
 .category-container {
     padding: 2px 16px;
 
+}
+
+@media only screen and (max-width: 600px) {
+    .category-card {
+        width: 100%;
+    }
+    .recent-added{
+         display:none;
+    }
 }
 </style> 
   </head>

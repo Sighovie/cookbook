@@ -1,101 +1,21 @@
-import os
-import datetime
-import pymysql
-from flask import Flask
-from flask import Flask, render_template, request, json, url_for,redirect, session, escape
-from datetime import timedelta
-import pymysql
-#from werkzeug import generate_password_hash, check_password_hash
-
-app = Flask(__name__)
-app.secret_key = "secret_key511"
-# Connect to the database
-username = os.getenv('C9_USER')
-connection = pymysql.connect(host='localhost',
-                             user=username,
-                             password='',
-                             db='recipe')
-                             
-
-"""To ensure that sessions used timedout in 30 minutes of inactivities"""
-@app.before_request
-def make_session_permanent():
-    session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=30)
-
-
-# Connect to the database
-#connection = pymysql.connect(host='localhost', user="si_user",password="si_allow_pass_through", db='recipe')
-"""Function to validate login for all pages available when a user is logged in"""
-def validate_login():
-    try:
-        if session["email"] and session["password"]:   
-            return 1
-        else:
-            return 0 
-    except:
-        return 0   
-        
-""" Update database Function"""
-def update_database(sql_stm):
-    rows = 0
-    try:
-        with connection.cursor() as cursor:
-            rows = cursor.execute(sql_stm)
-            connection.commit()
-    except:
-        ""
-    return rows
-    
-    
-"""The function is used to return one row only"""
-def fetch_one_row(sql_stm):
-    data = []
-    try:
-        with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-            rows = cursor.execute(sql_stm)
-            data = cursor.fetchone()
-            connection.commit()
-            if rows > 0:
-               return data
-            else:
-               return data
-    except:
-        ""
-
-"""The function is used to return all rows"""
-def fetch_all_rows(sql_stm):
-    data = []
-    try:
-        with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-            rows = cursor.execute(sql_stm)
-            data = cursor.fetchall()
-            connection.commit()
-            if rows > 0:
-               return data
-            else:
-               return data
-    except:
-        ""        
-
-
-"""Check if the email address is registered already"""    
-def does_user_exist(email):
-    try:
-        with connection.cursor() as cursor:
-            sql_stm = "SELECT * FROM authors WHERE email='"+ email +"';"
-            rows = cursor.execute(sql_stm)
-            connection.commit()
-            if rows > 0:
-               return True
-            else:
-               return False
-    except:
-        ""
+from utils import *
         
 @app.route("/")
 def main():
-    return render_template('index.html') 
+    sql_stm = "SELECT * FROM categories WHERE status='1';"
+    categories = fetch_all_rows(sql_stm)
+    sql_stm = "SELECT * FROM recipe WHERE public_status='1' AND status='1' ORDER BY votes DESC, views DESC LIMIT 20;"
+    recipes = fetch_all_rows(sql_stm)
+    return render_template('index.html',cat=categories,recipes=recipes)     
+
+"""View all recipies"""
+@app.route("/all_recipes")
+def all_recipes():
+    sql_stm = "SELECT * FROM categories WHERE status='1';"
+    categories = fetch_all_rows(sql_stm)
+    sql_stm = "SELECT * FROM recipe WHERE public_status='1' AND status='1' ORDER BY votes DESC, views DESC;"
+    recipes = fetch_all_rows(sql_stm)
+    return render_template('all_recipes.html',cat=categories,recipes=recipes)  
  
 """Dashboard when successfully logged in"""          
 @app.route("/dashboard")
@@ -108,10 +28,44 @@ def dashboard():
         notice_type = '0'
         return render_template('login.html',notice=notice, notice_type=notice_type)              
 
+       
 @app.route("/Login")
 def login():
     return render_template('login.html')  
-    
+
+
+@app.route('/LoginUser',methods=['POST'])
+def LoginUser():
+    email = request.form['email']
+    password = request.form['password'] #generate_password_hash() 
+
+    if email and password:
+        try:
+            with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+               sql_stm = "SELECT * FROM authors WHERE email = '"+ email +"' AND password = '"+  password+"';"
+               rows = cursor.execute(sql_stm)
+               data = cursor.fetchone()
+               connection.commit()
+               if rows > 0:
+                   session["email"] = email
+                   session["password"] = password
+                   session["firstname"] = data["firstname"]
+                   session["lastname"] = data["lastname"] 
+                   session["author_id"] = data["author_id"] 
+                   session["public_status"] = data["public_status"] 
+
+                   return redirect(url_for('dashboard'))
+               else:
+                   notice = "Login failed. Please try again"
+                   notice_type = '0'
+                   return render_template('login.html',notice=notice, notice_type=notice_type)                       
+        except:
+                ""
+    else:
+        notice = "Invalid details. Please enter your Email and Password correctly to login!"
+        notice_type = '0'
+        return render_template('login.html',notice=notice, notice_type=notice_type)          
+        
 @app.route("/LogOut")
 def LogOut():
     notice = """You have successfully logged out!"""
@@ -178,12 +132,14 @@ def recipe_detailed_view():
     enable_entry = validate_login()
     if enable_entry == 1:
 
-        sql_stm = "SELECT * FROM categories WHERE status='1';"
-        categories = fetch_all_rows(sql_stm)
+
                 
         sql_stm = "SELECT * FROM recipe WHERE recipe_id='" + str(request.args.get('id')) + "';"
-        recipe_data = fetch_all_rows(sql_stm)        
-                
+        recipe_data = fetch_all_rows(sql_stm) 
+        
+        sql_stm = "SELECT * FROM categories WHERE category_id="+ str(recipe_data[0]["category_id"]) +" AND status='1';"
+        categories = fetch_all_rows(sql_stm)
+        
         return render_template('recipe_detailed_view.html',cat=categories, data=recipe_data)    
 
     else:
@@ -242,17 +198,21 @@ def search():
         search_words = ""
         search = ""
         try:
-            if request.form['search']:
+            if request.method == 'POST':
                 search_words = request.form['search']
                 search = search_words
-            elif request.args.get('s'):
+            else:
                 search_words = request.args.get('s')   
-                search = search_words
+                search = search_words       
+
         except:
             ""
+        sql_stm = "SELECT * FROM categories WHERE status='1';"
+        categories = fetch_all_rows(sql_stm)
         sql_stm = "SELECT * FROM recipe WHERE recipe_name LIKE '%"+ search_words +"%' OR ingredients LIKE '%"+ search_words +"%' OR preparation_description LIKE '%"+ search_words +"%' OR known_allergies LIKE '%"+ search_words +"%' OR nutrition LIKE '%"+ search_words +"%' OR cuisine LIKE '%"+ search_words +"%' AND public_status='1' AND status='1' ORDER BY votes DESC, views DESC;"
         recipes = fetch_all_rows(sql_stm)
-        return render_template('search_results.html',recipes=recipes,search=search) 
+
+        return render_template('search_results.html',cat=categories,recipes=recipes,search=search) 
     else:
         notice = "Your session has expired. Please Login again!"
         notice_type = '0'
@@ -281,7 +241,12 @@ def searchDetail():
         recipe_data = fetch_all_rows(sql_stm)        
         
         search = request.args.get('s')
-        return render_template('search_result_detailed.html',cat=categories, recipes=recipe_data,search=search) 
+        
+        #now get the publisher country of origin
+        sql_stm = "SELECT * FROM authors WHERE author_id ="+ str(recipe_data[0]["author_id"]) +" AND public_status='1' AND status='1';"
+        country = fetch_all_rows(sql_stm)
+        return render_template('search_result_detailed.html',cat=categories,recipes=recipe_data,search=search,country=country)         
+
     else:
         notice = "Your session has expired. Please Login again!"
         notice_type = '0'
@@ -292,61 +257,62 @@ def searchDetail():
 """ Outside Search result""" 
 @app.route('/search_cat', methods=['GET', 'POST'])
 def search_cat():
-     search_words = ""
-     search = ""
-     try:
-         if request.form['search']:
-             search_words = request.form['search']
-             search = search_words
+    search_words = ""
+    search = ""    
+    sql_stm = "SELECT * FROM categories WHERE status='1';"
+    categories = fetch_all_rows(sql_stm)
+    sql_stm = "SELECT * FROM recipe WHERE public_status='1' AND status='1' ORDER BY votes DESC, views DESC;"
+    recipes = fetch_all_rows(sql_stm)
+    if request.method == "POST":
+        search_words = request.form['search']
+        search = search_words
 
-             sql_stm = "SELECT * FROM recipe WHERE recipe_name LIKE '%"+ search_words +"%' OR ingredients LIKE '%"+ search_words +"%' OR preparation_description LIKE '%"+ search_words +"%' OR known_allergies LIKE '%"+ search_words +"%' OR nutrition LIKE '%"+ search_words +"%' OR cuisine LIKE '%"+ search_words +"%' AND public_status='1' AND status='1' ORDER BY votes DESC, views DESC;"
-             recipes = fetch_all_rows(sql_stm) 
+        sql_stm = "SELECT * FROM recipe WHERE recipe_name LIKE '%"+ search_words +"%' OR ingredients LIKE '%"+ search_words +"%' OR preparation_description LIKE '%"+ search_words +"%' OR known_allergies LIKE '%"+ search_words +"%' OR nutrition LIKE '%"+ search_words +"%' OR cuisine LIKE '%"+ search_words +"%' AND public_status='1' AND status='1' ORDER BY votes DESC, views DESC;"
+        recipes = fetch_all_rows(sql_stm)     
+    return render_template('all_recipes.html',cat=categories,recipes=recipes,search=search)  
 
-             return render_template('outside_search_results.html',recipes=recipes,search=search)              
-     except:
-         ""
 
 """ Outside Search result query """ 
-@app.route('/search_cat_get', methods=['GET'])
+@app.route('/search_cat_get',  methods=['GET', 'POST'])
 def search_cat_get():
-     search_words = ""
-     search = ""
-     try:
-         if request.args.get("s"):
-             search_words = request.args.get("s")   
-             search = search_words
-             
-             sql_stm = "SELECT * FROM recipe WHERE recipe_name LIKE '%"+ search_words +"%' OR ingredients LIKE '%"+ search_words +"%' OR preparation_description LIKE '%"+ search_words +"%' OR known_allergies LIKE '%"+ search_words +"%' OR nutrition LIKE '%"+ search_words +"%' OR cuisine LIKE '%"+ search_words +"%' AND public_status='1' AND status='1' ORDER BY votes DESC, views DESC;"
-             recipes = fetch_all_rows(sql_stm) 
-             return render_template('outside_search_results.html',recipes=recipes,search=search) 
-         elif request.args.get("c"):    
-             sql_stm = "SELECT * FROM categories WHERE category_name LIKE '%"+ request.args.get('c') + "%' AND status='1';"
-             
-             data = fetch_all_rows(sql_stm)             
-             data[0]["category_id"] 
-             sql_stm = "SELECT * FROM recipe WHERE category_id = '%"+  '2' +"%' AND public_status='1' AND status='1' ORDER BY votes DESC, views DESC;"
-             recipes = fetch_all_rows(sql_stm)
-             return render_template('outside_search_results.html',recipes=recipes,search=search)  
-     except:
-           ""
+    search_words = ""
+    search = ""    
+    sql_stm = "SELECT * FROM categories WHERE status='1';"
+    categories = fetch_all_rows(sql_stm)
+    sql_stm = "SELECT * FROM recipe WHERE public_status='1' AND status='1' ORDER BY votes DESC, views DESC;"
+    recipes = fetch_all_rows(sql_stm)
+    if request.method == "POST":
+        search_words = request.form['search']
+        search = search_words
 
+        sql_stm = "SELECT * FROM recipe WHERE recipe_name LIKE '%"+ search_words +"%' OR ingredients LIKE '%"+ search_words +"%' OR preparation_description LIKE '%"+ search_words +"%' OR known_allergies LIKE '%"+ search_words +"%' OR nutrition LIKE '%"+ search_words +"%' OR cuisine LIKE '%"+ search_words +"%' AND public_status='1' AND status='1' ORDER BY votes DESC, views DESC;"
+        recipes = fetch_all_rows(sql_stm) 
+    else:
+        search_words = request.args.get("s")   
+        search = search_words
+             
+        sql_stm = "SELECT * FROM recipe WHERE recipe_name LIKE '%"+ search_words +"%' OR ingredients LIKE '%"+ search_words +"%' OR preparation_description LIKE '%"+ search_words +"%' OR known_allergies LIKE '%"+ search_words +"%' OR nutrition LIKE '%"+ search_words +"%' OR cuisine LIKE '%"+ search_words +"%' AND public_status='1' AND status='1' ORDER BY votes DESC, views DESC;"
+        recipes = fetch_all_rows(sql_stm)         
+    return render_template('all_recipes.html',cat=categories,recipes=recipes,search=search)  
+    
+    
 
 """ Outside index categories Search result query """ 
 @app.route('/search_index_get', methods=['GET'])
 def search_index_get():
      search_words = ""
      search = ""
-     try:
-         if request.args.get("c"):    
+     if request.method == "GET":    
              sql_stm = "SELECT * FROM categories WHERE category_name LIKE '%"+ request.args.get('c') + "%' AND status='1';"
              data = fetch_all_rows(sql_stm)             
              sql_stm = "SELECT * FROM recipe WHERE category_id = '"+  str(data[0]["category_id"])  +"' AND public_status='1' AND status='1' ORDER BY votes DESC, views DESC;"
              recipes = fetch_all_rows(sql_stm)
              search = request.args.get('c')
-             return render_template('outside_search_results.html',recipes=recipes,search=search)  
-     except:
-           ""           
-             
+             sql_stm = "SELECT * FROM categories WHERE status='1';"
+             categories = fetch_all_rows(sql_stm)             
+             return render_template('all_recipes.html',cat=categories,recipes=recipes,search=search)  
+
+        
 """ This is for Search detailed result searchDetail"""       
 @app.route('/outsideSearchDetail',methods=['GET'])
 def outsideSearchDetail():
@@ -363,7 +329,11 @@ def outsideSearchDetail():
         recipe_data = fetch_all_rows(sql_stm)        
         
         search = request.args.get('s')
-        return render_template('outside_search_result_detailed.html',cat=categories, recipes=recipe_data,search=search) 
+        #now get the publisher country of origin
+        sql_stm = "SELECT * FROM authors WHERE author_id ="+ str(recipe_data[0]["author_id"]) +" AND public_status='1' AND status='1';"
+        country = fetch_all_rows(sql_stm)
+        return render_template('outside_search_result_detailed.html',cat=categories,recipes=recipe_data,search=search,country=country)           
+
 
         
 """ VoteNow """
@@ -390,7 +360,31 @@ def VoteNow():
     else:
         notice = "Your session has expired. Please Login again!"
         notice_type = '0'
-        return render_template('login.html',notice=notice, notice_type=notice_type)    
+        return render_template('login.html',notice=notice, notice_type=notice_type) 
+        
+""" DownVoteNow """
+""" This is for for votes """       
+@app.route('/DownVoteNow',methods=['GET'])
+def DownVoteNow():
+    enable_entry = validate_login()
+    if enable_entry == 1:
+        sql_stm = "SELECT recipe_id,dislikes FROM recipe WHERE recipe_id='"+ str(request.args.get('id')) +"';"
+        data = fetch_one_row(sql_stm)        
+        new_votes = 1 + int(data["dislikes"])
+        sql_stm = "UPDATE recipe SET dislikes ='" + str(new_votes) + "' WHERE recipe_id = '" + str(request.args.get('id')) + "' LIMIT 1;"
+        rows = update_database(sql_stm)
+
+        sql_stm = "SELECT * FROM categories WHERE status='1';"
+        categories = fetch_all_rows(sql_stm)
+        
+        sql_stm = "SELECT * FROM recipe WHERE recipe_id='" + str(request.args.get('id')) + "' AND public_status ='1';"
+        recipe_data = fetch_all_rows(sql_stm)        
+        search = request.args.get('s')
+        return render_template('search_result_detailed.html',cat=categories, recipes=recipe_data,search=search) 
+    else:
+        notice = "Your session has expired. Please Login again!"
+        notice_type = '0'
+        return render_template('login.html',notice=notice, notice_type=notice_type)         
 
 """ Out VoteNow """
 """ This is for for votes """       
@@ -413,6 +407,24 @@ def OutVoteNow():
     search = request.args.get('s')
     return render_template('outside_search_result_detailed.html',cat=categories, recipes=recipe_data,search=search) 
 
+""" Out OutDownVoteNow """
+""" This is to vote down """       
+@app.route('/OutDownVoteNow',methods=['GET'])
+def OutDownVoteNow():
+
+    sql_stm = "SELECT recipe_id,dislikes FROM recipe WHERE recipe_id='"+ str(request.args.get('id')) +"';"
+    data = fetch_one_row(sql_stm)        
+    new_votes = 1 + int(data["dislikes"])
+    sql_stm = "UPDATE recipe SET dislikes ='" + str(new_votes) + "' WHERE recipe_id = '" + str(request.args.get('id')) + "' LIMIT 1;"
+    rows = update_database(sql_stm)
+
+    sql_stm = "SELECT * FROM categories WHERE status='1';"
+    categories = fetch_all_rows(sql_stm)
+        
+    sql_stm = "SELECT * FROM recipe WHERE recipe_id='" + str(request.args.get('id')) + "' AND public_status ='1';"
+    recipe_data = fetch_all_rows(sql_stm)        
+    search = request.args.get('s')
+    return render_template('outside_search_result_detailed.html',cat=categories, recipes=recipe_data,search=search) 
         
 """ This is to enter recipe details"""
 @app.route('/createNewRecipe',methods=['POST'])
@@ -585,39 +597,7 @@ def UpdateRecipe():
         notice = "Your session has expired. Please Login again!"
         notice_type = '0'
         return render_template('login.html',notice=notice, notice_type=notice_type)  
-        
-
-@app.route('/LoginUser',methods=['POST'])
-def LoginUser():
-    email = request.form['email']
-    password = request.form['password'] #generate_password_hash() 
-
-    if email and password:
-        try:
-            with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-               sql_stm = "SELECT * FROM authors WHERE email = '"+ email +"' AND password = '"+  password+"';"
-               rows = cursor.execute(sql_stm)
-               data = cursor.fetchone()
-               connection.commit()
-               if rows > 0:
-                   session["email"] = email
-                   session["password"] = password
-                   session["firstname"] = data["firstname"]
-                   session["lastname"] = data["lastname"] 
-                   session["author_id"] = data["author_id"] 
-                   session["public_status"] = data["public_status"] 
-
-                   return redirect(url_for('dashboard'))
-               else:
-                   notice = "Login failed. Please try again"
-                   notice_type = '0'
-                   return render_template('login.html',notice=notice, notice_type=notice_type)                       
-        except:
-                ""
-    else:
-        notice = "Invalid details. Please enter your Email and Password correctly to login!"
-        notice_type = '0'
-        return render_template('login.html',notice=notice, notice_type=notice_type)              
+    
 
         
 if __name__ == '__main__':

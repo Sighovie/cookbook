@@ -78,7 +78,7 @@ def fetch_all_categories(sql_stm):
         "" 
 sql_stm = "SELECT * FROM recipe ;"
 recipe_data = fetch_all_rows(sql_stm) 
-print(recipe_data)
+print(recipe_data[0]["category_id"])
         
 #print(fetch_one_row(sql_stm))
 #sql_stm = "SELECT * FROM categories WHERE status='1';"

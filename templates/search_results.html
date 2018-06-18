@@ -10,6 +10,7 @@
                     <tr>
                       <th>Recipe Name/Title</th>
                       <th>Description</th>
+                      <th>Categories</th>
                       <th>Votes</th>
                       <th>Views</th>
                     </tr>
@@ -19,7 +20,14 @@
                        {% for value in recipes %}
                     <tr>
                       <td><a href="searchDetail?id={{value['recipe_id']}}&s={{ search }}">{{ value['recipe_name'][:100] }}</a></td>
-                      <td><a href="searchDetail?id={{value['recipe_id']}}&s={{ search }}">{{value['preparation_description'][:200] }}</a></td>
+                      <td><a href="searchDetail?id={{value['recipe_id']}}&s={{ search }}">{{value['preparation_description'][:50] }}</a></td>
+                      <td><a href="searchDetail?id={{value['recipe_id']}}&s={{ search }}">
+                        {% for innerval in cat%}
+                        {% if value['category_id'] == innerval['category_id']%}
+                        {{ innerval['category_name'] }}
+                        {% endif %}
+                        {% endfor %}
+                        </a></td>
                       <td><a href="searchDetail?id={{value['recipe_id']}}&s={{ search }}">{{value['votes']}}</a></td>
                       <td><a href="searchDetail?id={{value['recipe_id']}}&s={{ search }}">{{value['views']}}</a></td>
                     </tr>                    

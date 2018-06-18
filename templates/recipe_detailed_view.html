@@ -1,6 +1,6 @@
 {% extends 'dash_base.html'%} 
 {% block content %}
-<div class="col-sm-8">
+        <div class="col-sm-8">
             <div class="panel panel-default">
               <div class="panel-heading"><h3>Recipe Detailed View</h3></div>
               <div class="panel-body">
@@ -14,7 +14,7 @@
 
                     <tr>
                       <td width="35%" style="font-weight:900;">Category:</td>
-                      <td width="65%">{{ cat[0]['category_name'] }}</td>
+                      <td width="65%">{{ cat[0]["category_name"] }}</td>
                     </tr>                    
                     <tr>
                       <td style="font-weight:900;">Ingredients:</td>
@@ -65,8 +65,28 @@
                       </td>
                     </tr>                    
                     <tr>
-                      <td>&nbsp;</td>
-                      <td><a href="view_your_recipes"><strong>&lt;&lt; Back</strong></a></td>
+                      <th colspan="2" scope="row"><table width="100%" border="0" cellspacing="5" cellpadding="5">
+                        <tr>
+                          <th scope="col">
+                            <form id="back" name="back" method="GET" action="view_your_recipes">
+                              <button type="submit" class="btn btn-default"> Back </button>
+                            </form> 
+                            </th>
+                          <th scope="col">
+                            <form id="edit" name="edit" method="GET" action="edit_recipe?id={{data[0]['recipe_id']}}">
+                              <input name="id" id="id" type="hidden" value="{{data[0]['recipe_id']}}" />
+                              <button type="submit" class="btn btn-default">Edit</button>
+                            </form>                            
+                          </th>
+                          <th scope="col">
+                            <form id="del" name="del" method="GET" action="delete_recipe?id={{data[0]['recipe_id']}}">
+                              <input name="id" id="id" type="hidden" value="{{data[0]['recipe_id']}}" />
+                              <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                            
+                            </th>
+                        </tr>
+                      </table></th>
                     </tr>                    
                   </tbody>
                 </table>                

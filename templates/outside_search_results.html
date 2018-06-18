@@ -20,8 +20,8 @@
                         
                        {% for value in recipes %}
                     <tr>
-                      <td><a href="outsideSearchDetail?id={{value['recipe_id']}}&s={{ search }}">{{ value['recipe_name'][:100] }}</a></td>
-                      <td><a href="outsideSearchDetail?id={{value['recipe_id']}}&s={{ search }}">{{value['preparation_description'][:200] }}</a></td>
+                      <td><a href="outsideSearchDetail?id={{value['recipe_id']}}&s={{ search }}">{{ value['recipe_name'][:10] }}</a></td>
+                      <td><a href="outsideSearchDetail?id={{value['recipe_id']}}&s={{ search }}">{{value['preparation_description'][:20] }}</a></td>
                       <td><a href="outsideSearchDetail?id={{value['recipe_id']}}&s={{ search }}">{{value['votes']}}</a></td>
                       <td><a href="outsideSearchDetail?id={{value['recipe_id']}}&s={{ search }}">{{value['views']}}</a></td>
                     </tr>                    
