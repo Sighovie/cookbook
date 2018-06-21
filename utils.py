@@ -5,11 +5,12 @@ from flask import Flask
 from flask import Flask, render_template, request, json, url_for,redirect, session, escape
 from datetime import timedelta
 import pymysql
+from dotenv import load_dotenv, find_dotenv
 #from werkzeug import generate_password_hash, check_password_hash
-
+load_dotenv(find_dotenv())
 
 app = Flask(__name__)
-app.secret_key = "secret_key511"
+app.secret_key = os.getenv('SECRET_KEY')
 # Connect to the database
 username = os.getenv('C9_USER')
 connection = pymysql.connect(host='localhost',
