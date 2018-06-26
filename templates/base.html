@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>      
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
       <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon">
       <link rel="icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon">      
       <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
@@ -164,6 +164,10 @@ category-img {
 
 }
 
+#hamburger{
+   display: none;
+}
+    
 @media only screen and (max-width: 600px) {
     .category-card {
         width: 100%;
@@ -171,7 +175,11 @@ category-img {
     .recent-added{
          display:none;
     }
+    #hamburger{
+      display: block;
+    }
 }
+
 </style> 
   </head>
  
@@ -181,12 +189,15 @@ category-img {
     <header class="navbar navbar-inverse navbar-custom ">
       <div class="container">
           <div class="bgimg">
-            <div class="navbar-header">
-                <a class="logo-style" href="/">Online Cook-book</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>          
+            <div class="navbar navbar-header navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+                
+                <a class="logo-style" href="/"><img src="{{url_for('static', filename='images/radish_logo.png')}}" alt="Logo" style="width:35px;height:35px;padding:0;"></img>Online Cook Book</a>
+                
+                <button style="background-color:#8BAB12;" class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" id="hamburger" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                   Menu
+                  <i class="glyphicon glyphicon-menu-hamburger"></i>
+                </button>
+                
             </div>
             <div class="collapse navbar-collapse" id="navbarResponsive">
               <ul class="nav navbar-right menu-links">
@@ -217,7 +228,7 @@ category-img {
     <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
-            <p class="m-0 text-center text-white">Online Cook-Book 2018</p>
+            <p class="m-0 text-center text-white"><img src="{{url_for('static', filename='images/radish_logo.png')}}" alt="Logo" style="width:20px;height:20px;padding:2px;"></img>Online Cook-Book 2018</p>
         </div>
         <!-- /.container -->
     </footer>

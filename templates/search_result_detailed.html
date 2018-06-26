@@ -18,8 +18,7 @@
                 {% if country %}
                 <p><strong>Author's Country Of Origin</strong><br />{{ country[0]['country'] }}</p><br />
                 {% endif %}
-                
-                <p>[<strong>Views: {{ recipes[0]["views"] }}</strong>] [<strong>Up Votes: {{ recipes[0]["votes"] }}</strong>] [<strong>Down Votes: {{ recipes[0]["dislikes"] }}</strong>]  [ <a href="VoteNow?id={{recipes[0]['recipe_id']}}&s={{ search }}"><strong style="color:green;">Vote Up <i class="glyphicon glyphicon-thumbs-up"></i></strong></a> ]   [ <a href="DownVoteNow?id={{recipes[0]['recipe_id']}}&s={{ search }}"><strong style="color:red;">Vote Down <i class="glyphicon glyphicon-thumbs-down"></i></strong></a> ]</p>
+                <p>[<strong>Views: {{ recipes[0]["views"] }}</strong>] [ <a href="VoteNow?id={{recipes[0]['recipe_id']}}&s={{ search }}"><strong style="color:green;">{{ recipes[0]["votes"] }}  Vote Up <i class="glyphicon glyphicon-thumbs-up"></i></strong></a> ]   [ <a href="DownVoteNow?id={{recipes[0]['recipe_id']}}&s={{ search }}"><strong style="color:red;">{{ recipes[0]["dislikes"] }}  Vote Down <i class="glyphicon glyphicon-thumbs-down"></i></strong></a> ]</p>
                 <p><a href="search?s={{ search }}"><small><small><</small></small><small><</small>< Back </a></p>
                 
             

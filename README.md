@@ -60,6 +60,10 @@ When a recipe is opened, a user can vote for it. Each vote carries one point. An
 ### Down Vote
 Just as a user can upvotes a recipe, so also can the user down vote a recipe. The down votes are displayed on all detailed view of a recipe near the Up votes.
 
+### Tests
+test_utils.py is used for the unittest, and all the database functions were tested with expected results. A new table is created each time for the test, and afterwards deleted. Although one of the tests use a direct access to the production table.
+
+
 ### Technologies used
 The site was developed using html / html 5, CSS / CSS 3, Bootstrap, Javascript, Flask, Python3, MySQL, Cloud9, and git/github for version control. Also assessible on Heroku.
 

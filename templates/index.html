@@ -181,17 +181,10 @@
                     </div>            
                   </a>            
                 </div>                
-              </div><br />
-              <div class="row">
-                <div class="col-sm-12">
-                    <form id="edit" name="edit" method="GET" action="all_recipes">
-                      <button type="submit" class="btn btn-success" style="float:left;margin-top:10px;background-color: #8BAB12;">All Recipes</button>
-                    </form>                     
-                </div>
-              </div>                    
+              </div>                
               <br />
               {% if recipes %}
-			        <h3>20 RECENTLY ADDED RECIPES</h3>
+			        <h3>RECENTLY ADDED RECIPES</h3>
               <div class="row recent-added">
                 <div class="col-sm-2"><strong>Title</strong></div>
                 <div class="col-sm-2"><strong>Category</strong></div>
@@ -215,7 +208,14 @@
               </div>
               {% endfor %}
               {% endif %}
-              
+              <br />
+              <div class="row">
+                <div class="col-sm-12" style="text-align:center;">
+                    <form id="edit" name="edit" method="GET" action="all_recipes">
+                      <button type="submit" class="btn btn-success btn-lg" style="margin-top:10px;background-color: #8BAB12;">All Recipes</button>
+                    </form>                     
+                </div>
+              </div>    
         
         </div>         
 

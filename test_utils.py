@@ -9,13 +9,11 @@ connection = pymysql.connect(host='localhost',
                              password='',
                              db='recipe')
 
-
 class TestMyData(unittest.TestCase):
 
     def setUp(self):
         print('Test entered SetUp')
-        with connection.cursor() as cursor:
-            sql_stm = """
+        sql_stm = """
             CREATE TABLE IF NOT EXISTS `authors2` (
               `author_id` smallint NOT NULL AUTO_INCREMENT,
               `email` varchar(150) DEFAULT NULL,
@@ -35,12 +33,10 @@ class TestMyData(unittest.TestCase):
               `status` char(1) DEFAULT '1',
               PRIMARY KEY (`author_id`)
             ) ;"""
-            cursor.execute(sql_stm)
-            sql_stm = """
+        rows = update_database(sql_stm)
+        sql_stm = """
             INSERT INTO authors2 (email,password,firstname,lastname,gender,date_of_birth,address,city,state,country,postcode,reg_date,contact_number,public_status,status)VALUES('testemail@mail.com','passpass','John','Peru','Male','1989-06-15','Address','City','State','Country','245845','2018-07-15','0807543565','1','1');"""
-            cursor.execute(sql_stm)
-            connection.commit()
-
+        rows = update_database(sql_stm)
 
     def test_fetch_one_row(self):
         query = "SELECT * FROM authors2 WHERE firstname='John';"
@@ -66,12 +62,8 @@ class TestMyData(unittest.TestCase):
         
     def tearDown(self):
         print('Test entered tearDown')
-        
-        with connection.cursor() as cursor:
-             sql_stm = "DROP TABLE authors2;"
-             rows = cursor.execute(sql_stm)
-             connection.commit()            
-           
+        sql_stm = "DROP TABLE authors2;"
+        rows = update_database(sql_stm)
 
 
 if __name__ == '__main__':
