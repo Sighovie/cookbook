@@ -13,10 +13,16 @@ app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 # Connect to the database
 username = os.getenv('C9_USER')
+
 connection = pymysql.connect(host='localhost',
                              user=username,
                              password='',
                              db='recipe')
+                             
+connection = pymysql.connect(host='mysql://b58cd4f430707b:8e2fe11b@eu-cdbr-west-02.cleardb.net/heroku_ad06e2c54e075ba?reconnect=true',
+                             user=username,
+                             password='',
+                             db='recipe')                             
                              
 
 """To ensure that sessions used timedout in 30 minutes of inactivities"""
